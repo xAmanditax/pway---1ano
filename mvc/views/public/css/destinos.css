@@ -1,0 +1,68 @@
+.navicon{
+    margin: 5px;
+    color: black;
+ }
+
+ .navbar{
+    border: 1px solid black;
+ }
+ .nav-item{
+     margin: 9px;
+ }
+
+ .nav-link{
+    font-size: 20px;
+}
+
+.entrar{
+    background-color:#963edd;
+    width: 120px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+.bi-person{
+    font-size: 40px;
+}
+
+ .divcards{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .form-control{
+     margin: 10px;
+     max-width: 90%;
+ }
+ .line{
+ width: 1179.01px;
+ height: 0px;
+ left: 520px;
+ top: 727px;
+  
+  
+ border: 1px solid #D1D1D2;
+ transform: rotate(-0.05deg);
+ }
+
+
+.btn{
+    background-color:#963edd;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.btn:hover{
+    -webkit-transform-origin-x: 1px;
+    -webkit-transform-origin-y: 1px;
+    font-size: 20px;
+}
+
+.btn a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    
+}

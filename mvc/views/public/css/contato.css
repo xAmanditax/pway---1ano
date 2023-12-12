@@ -1,0 +1,284 @@
+*{
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+body{
+
+    width: 100%;
+    
+    display: flex;
+    
+    justify-content: center!important;
+    
+    flex-wrap: nowrap;
+    
+    flex-direction: column;
+    
+    
+    }
+
+nav{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 30px 30px;
+}
+
+.nav-link{
+    font-size: 20px;
+}
+
+.entrar{
+    background-color: #963edd;
+    width: 120px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.bi-person{
+    font-size: 40px;
+}
+ 
+
+
+
+ 
+
+ 
+
+.contato h1{
+
+    display: flex;
+
+    flex-direction: center;
+
+    justify-content: center;
+
+    align-items: center ;
+
+    position: relative;
+
+    font-size: 50px;
+
+    top: 120px;
+
+    color: #ffffff;
+
+}
+
+.mapa{
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+main{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ 
+
+article#contato{
+
+ 
+
+    display: flex;
+
+    height: 100px;
+
+}
+
+ 
+
+form{
+
+    display: flex;
+
+    flex-direction: column;
+
+ 
+
+}
+
+div.info{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+label[for="txtnome"],
+label[for="txtemail"],
+label[for="txtobj"],
+label[for="txtsuamsg"]{
+    font-size: 18px;
+    color: black;
+    margin-top: 3px;
+}
+
+
+
+#txtnome,
+#txtemail,
+#txtobj,
+#txtsuamsg{
+    width: 350px;
+    border: 1px solid rgb(141, 141, 141);
+    border-radius: 5px 5px 5px 5px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.btnformcad{
+    margin-top: 10px;
+    background-color: rgb(146, 39, 146, 0.6);
+    border-radius: 5px 5px 5px 5px;
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px black;
+    color: white;
+    border: 1px solid black;
+    height: 40px;
+}
+
+
+ 
+
+
+ 
+
+h1{
+
+ 
+
+display: flex;
+
+justify-content: center;
+
+}
+
+ 
+
+ 
+
+.entreemcontato{
+
+    background-color: #ffffff;
+
+    height: 500px;
+
+    width: 800px;
+
+    margin-top: -80px!important;
+
+    margin: 0 auto;
+
+    box-shadow: 0px 0px 20px 20px #00000033;
+
+   
+
+}
+
+.entreemcontato h2{
+
+    display: flex;
+
+    flex-direction: center;
+
+    justify-content: center;
+
+    align-items: center ;
+
+    position: relative;
+
+    font-size: 50px;
+
+   
+
+}
+
+.entreemcontato p{
+
+    font-size: 22px;
+
+    display: flex;
+
+    flex-direction: center;
+
+    justify-content: center;
+
+    align-items: center ;
+
+    color: #cfc6c6;
+
+    margin: 40px 0px 90px 0px;
+
+}
+
+.containertext-center{
+
+    display: flex;
+
+    flex-direction: center;
+
+}
+
+.nav1{
+    display: flex;
+    list-style: none;
+    position: fixed;
+    background-color: rgb(91, 21, 21);
+    height: 40px;
+    flex-direction: row-reverse;
+    color: rgb(227, 228, 231);
+}
+
+.nav{
+    display: flex;
+    position: fixed;
+    right: 0px;
+    left: 100px;
+    top: 30px;
+    width: 80%;
+    height: 50px;
+    background-color: rgb(227, 228, 231);
+    padding-right: 10px;
+    border-radius: 7px 7px 40px 40px;
+
+}
+nav ul{
+    margin: 0px;
+}
+
+.nav-item li{
+    position: fixed;
+    right: 0px;
+}
+
+.nav-item a{
+    margin-left: 20px;
+}
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 

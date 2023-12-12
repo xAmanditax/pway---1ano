@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa</title>
+    <style>
+        #character {
+            position: absolute;
+            width: 80px;
+            height: 90px;
+            transition: 0.1s;
+            z-index: 1000;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .marker-popup {
+            max-width: 300px;
+        }
+
+        .popup-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .popup-info {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        #info-container {
+            position: absolute;
+            top: 80px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 45px;
+            color: rgb(0, 0, 0);
+            z-index: 1001;
+        }
+
+        #coins-container {
+            display: flex;
+            align-items: center;
+            font-size: 45px;
+            color: rgb(0, 0, 0);
+        }
+
+        #time-counter{
+            border: 1px solid black;
+            background-color: rgb(130, 93, 199);
+            font-size: 35px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        #coins-container{
+            border: 1px solid black;
+            background-color: white;
+            font-size: 30px;
+            border-radius: 5px 5px 5px 5px;
+            margin-top: 5px;
+        }
+
+#steps-counter{
+    border: 1px solid black;
+    background-color: white;
+    font-size: 30px;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 5px;
+
+}
+
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div id="info-container">
+<div id="time-counter">Tempo: 00:00</div>
+<div id="coins-container">
+    <span id="coin-count">0 </span>p-coins
+</div>
+
+
+    <div id="steps-counter">Passos: 0</div>
+</div>
+
+</div>
+<img id="character" src="../public/images/persoFrente.png"
+style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+<div id="map" class="leaflet-container" tabindex="0"></div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+let stepCount = 0;
+const stepsPerCoin = 100;
+const map = L.map('map').setView([-22.120338388566953, -51.4056315517982], 18);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 40,
+}).addTo(map);
+
+const character = document.getElementById('character');
+const coinCountElement = document.getElementById('coin-count');
+const timeCounterElement = document.getElementById('time-counter');
+
+let coinCount = 0;
+let minutes = 0;
+let seconds = 0;
+
+function startTimer() {
+    setInterval(() => {
+        seconds++;
+
+        if (seconds === 60) {
+            minutes++;
+            seconds = 0;
+            coinCount++;
+            coinCountElement.textContent = coinCount;
+        }
+
+        const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timeCounterElement.textContent = `Tempo: ${formattedTime}`;
+    }, 1000);
+}
+
+startTimer();
+
+const capitals = {
+    "Matarazzo": { coords: [-22.120719449606206, -51.37948396102449], img: '../public/images/matarazzo.icon.jpg', info: 'Informações sobre o Matarazzo'},
+    "PrudenShopping": { coords: [-22.11598738187286, -51.40718374847794], img: '../public/images/shopping.icon.png', info: 'Informações sobre PrudenShopping' },
+    "Parque do Povo": { coords: [-22.12344342371128, -51.40239574568446], img: '../public/images/parquedopovo.icon.jpg', info: 'Informações sobre Parque do Povo' },
+    "SESC Thermas": { coords: [-22.120529892989214, -51.413816530344384], img: '..public/images/sesc.icon.jpg', info: 'Informações sobre SESC Thermas' }
+};
+
+const markers = [];
+for (const capital in capitals) {
+    const { coords, img, info } = capitals[capital];
+    const marker = L.marker(coords);
+    marker.bindPopup(`<img src="${img}" alt="${capital}" class="popup-img"><p class="popup-info">${info}</p>`, { className: 'marker-popup' });
+            marker.addTo(map);
+            markers.push({ marker, collisionAlertShown: false });
+        }
+
+        let xPosition = map.getSize().x / 2;
+        let yPosition = map.getSize().y / 2;
+
+        let isMoving = false;
+
+        document.addEventListener('keydown', (event) => {
+            const key = event.key;
+
+            if (isMoving) return;
+
+            if (key === 'ArrowUp') {
+                moveCharacter('up');
+            } else if (key === 'ArrowDown') {
+                moveCharacter('down');
+            } else if (key === 'ArrowLeft') {
+                moveCharacter('left');
+            } else if (key === 'ArrowRight') {
+                moveCharacter('right');
+            }
+        });
+
+        function moveCharacter(direction) {
+    if (isMoving) return;
+
+    isMoving = true;
+
+    const speed = 5;
+
+    const moveInterval = setInterval(() => {
+        let deltaX = 0;
+        let deltaY = 0;
+
+        if (direction === 'up' && yPosition > 0) {
+            character.src = '../public/images/persoCostas.png';
+            deltaY = -1;
+        } else if (direction === 'down' && yPosition < map.getSize().y - character.height) {
+            character.src = '../public/images/persoFrente.png';
+            deltaY = 1;
+        } else if (direction === 'left' && xPosition > 0) {
+            character.src = '../public/images/persoEsquerda.png';
+            deltaX = -1;
+        } else if (direction === 'right' && xPosition < map.getSize().x - character.width) {
+            character.src = '../public/images/persoDireita.png';
+            deltaX = 1;
+        }
+
+        xPosition += deltaX * speed;
+        yPosition += deltaY * speed;
+
+        character.style.left = xPosition + 'px';
+        character.style.top = yPosition + 'px';
+
+        map.panTo(map.containerPointToLatLng(L.point(xPosition, yPosition)));
+
+        const characterRect = character.getBoundingClientRect();
+        markers.forEach(item => {
+            const { marker, collisionAlertShown } = item;
+            const markerLatLng = marker.getLatLng();
+            const markerPos = map.latLngToContainerPoint(markerLatLng);
+
+            if (
+                xPosition + characterRect.width > markerPos.x &&
+                xPosition < markerPos.x + 1 &&
+                yPosition + characterRect.height > markerPos.y &&
+                yPosition < markerPos.y + 1
+            ) {
+                if (!collisionAlertShown) {
+                    marker.openPopup();
+                    item.collisionAlertShown = true;
+                }
+            } else {
+                item.collisionAlertShown = false;
+                marker.closePopup();
+            }
+
+            clearInterval(moveInterval);
+            isMoving = false;
+        });
+
+        stepCount++;
+        document.getElementById('steps-counter').textContent = `Passos: ${stepCount}`;
+
+        if (stepCount % stepsPerCoin === 0) {
+            coinCount++;
+            coinCountElement.textContent = coinCount;
+        }
+
+    }, 100);
+    document.addEventListener('keyup', () => {
+        clearInterval(moveInterval);
+        isMoving = false;
+    });
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

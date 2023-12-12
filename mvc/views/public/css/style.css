@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url('../images/img-city.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav{
+    position: absolute;
+    top: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px 10px 30px 30px;
+}
+
+.nav-link{
+    font-size: 20px;
+}
+
+.entrar{
+    background-color:#963edd;
+    width: 100px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+.bi-person{
+    font-size: 40px;
+}
+
+
+
+.card{
+    position: relative;
+    top: 250px;
+    width: 40rem;
+    height: 465px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px 30px 30px 30px;
+    background-color:rgb(6, 6, 39, 0.9);
+    box-shadow: 1px 1px 0.09em 0.07em white;
+
+}
+
+.card h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 60px;
+    color:darkorchid;
+    align-items: center; 
+
+}
+
+.card h2{
+    font-size: 70px;
+    font-weight: 500;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: 0.01em;
+    text-shadow: 0.02em 0.05em 0.06em;
+    color: darkorchid;
+    text-shadow: 0.01em 0.02em 0.03em;
+    align-items: center;
+}
+
+.card p{
+    color: white;
+    font-size: 20px;
+}
+
+.card .btn{
+    font-size: 25px;
+    background-color:#963edd;
+    transition: all 0.5s;
+    cursor: pointer;
+    border-radius: 30px 30px 30px 30px;
+    font-weight: 500;
+}
+
+.card .btn:hover{
+    -webkit-transform-origin-x: 1px;
+    -webkit-transform-origin-y: 1px;
+    font-size: 32px;
+
+}
+
+.btn a{
+    text-decoration: none;
+    list-style: none;
+    color: white
+}
